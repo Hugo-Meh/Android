@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.androidlinux.projetandroid.MainActivity">
+    <TextView
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ImageMap"/>
+
+        <EditText
+            android:gravity="center_horizontal"
+
+            android:layout_gravity="center|center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Identifiant      "/>
+        <EditText
+            android:inputType="textPassword"
+            android:gravity="center_horizontal"
+
+            android:layout_gravity="center|center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Password      "/>
+
+</LinearLayout>
