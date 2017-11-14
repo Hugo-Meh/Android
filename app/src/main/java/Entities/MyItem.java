@@ -1,4 +1,4 @@
-package com.example.androidlinux.projetandroid;
+package Entities;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
