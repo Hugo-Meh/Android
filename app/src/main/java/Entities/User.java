@@ -14,13 +14,18 @@ public class User {
     private String pwd;
     private ArrayList<Integer> friendListId;
     private ArrayList<Integer> photoListId;
+    private String token;
 
-    public User(int id, String fname, String lname, ArrayList<Integer> friendListId, ArrayList<Integer> photoListId) {
-        this.id = id;
-        Fname = fname;
-        Lname = lname;
-        this.friendListId = friendListId;
-        this.photoListId = photoListId;
+    public User(String token) {
+        this.token = token;
+    }
+
+    public User(String login, String pwd) {
+        this.login = login;
+        this.pwd = pwd;
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -77,5 +82,13 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

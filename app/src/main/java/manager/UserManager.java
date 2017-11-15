@@ -16,6 +16,7 @@ import utils.CDataBase;
 public class UserManager {
 
     private static final String queryLoginPwd = "select * from " + CDataBase.user.nomTable + " where login like ? and pwd like ?";
+    private static final String queryToken = "select * from " + CDataBase.user.nomTable + " where token like ?";
 
     public static void insert (Context ctx, User user){
 
@@ -24,20 +25,34 @@ public class UserManager {
         contVal.put(CDataBase.user.pwd, user.getPwd());
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
-        bd.insert(CDataBase.nomBd,null,contVal);
+        bd.insert(CDataBase.user.nomTable,null,contVal);
 
         bd.close();
     }
 
-    public static User verifyUser (Context ctx, String login, String pwd){
+    public static User verifyToken (Context ctx, String token){
+        User retour = null;
+
+        SQLiteDatabase bd = ConnexionBD.getBd(ctx);
+        Cursor c = bd.rawQuery(queryLoginPwd, new String[]{token});
+
+        if (c.moveToNext())
+            retour = new User(c.getString(c.getColumnIndex(CDataBase.user.token)));
+        return retour;
+
+    }
+
+    public static User verifyUser(Context ctx, String login, String pwd){
         User retour = null;
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
         Cursor c = bd.rawQuery(queryLoginPwd, new String[]{login, pwd});
-       /* if (c.moveToNext())
-            retour = new User(c.getInt(c.getColumnIndex(CDataBase.user.id)),
-                    c.getString(c.getColumnIndex(CDataBase.user.login)),
-                    c.getString(c.getColumnIndex(CDataBase.user.pwd)));*/
+
+        if (c.moveToNext())
+            retour = new User();
+            retour.setLogin(c.getString(c.getColumnIndex(CDataBase.user.login)));
+            retour.setPwd(c.getString(c.getColumnIndex(CDataBase.user.pwd)));
+
 
         return retour;
 
