@@ -24,6 +24,7 @@ public final class CDataBase {
         public static final String lat = "lat";
         public static final String lon = "lon";
         public static final String date = "date";
+        public static final String src = "src";
     }
 
     public static final class userAtUser {

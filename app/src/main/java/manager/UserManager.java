@@ -18,14 +18,14 @@ public class UserManager {
     private static final String queryLoginPwd = "select * from " + CDataBase.user.nomTable + " where login like ? and pwd like ?";
     private static final String queryToken = "select * from " + CDataBase.user.nomTable + " where token like ?";
 
-    public static void insert (Context ctx, User user){
+    public static void insert (Context ctx, User user) {
 
         ContentValues contVal = new ContentValues();
         contVal.put(CDataBase.user.login, user.getLogin());
         contVal.put(CDataBase.user.pwd, user.getPwd());
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
-        bd.insert(CDataBase.user.nomTable,null,contVal);
+        bd.insert(CDataBase.user.nomTable, null, contVal);
 
         bd.close();
     }

@@ -15,7 +15,7 @@ public class Bravo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bravo);
-
+        ctx = this;
         tv = (TextView) findViewById(R.id.textTest);
         String infoUserDB;
         User user;
