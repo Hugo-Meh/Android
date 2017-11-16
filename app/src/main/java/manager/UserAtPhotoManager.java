@@ -33,19 +33,21 @@ public class UserAtPhotoManager {
 
 
 
-    public static Photo[] getAllFromUser(Context ctx, User user){
+    /*public static ArrayList<Photo> getAllFromUser(Context ctx, User user){
         ArrayList<Photo> retour;
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
         Cursor c = bd.rawQuery(queryGetAllFromUser, new String[]{String.valueOf(user.getId())});
 
         while (c.moveToNext()){
+            Photo photo = new Photo;
+            photo.setId(c.getInt(c.getColumnIndex(CDataBase.image.id)));
+            photo.setLat(c.getFloat(c.getColumnIndex(CDataBase.image.lat)));
+            photo.getLon(c.)
+
+
             retour.add(new Photo(c.getInt(c.getColumnIndex(CDataBase.userAtImage.))))
         }
-
-
-
-
         return retour;
-    }
+    }*/
 }
