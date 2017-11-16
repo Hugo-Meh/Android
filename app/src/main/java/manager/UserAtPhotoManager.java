@@ -17,9 +17,7 @@ import utils.CDataBase;
  */
 
 public class UserAtPhotoManager {
-
-    public static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" where idUser = ?";
-
+    // probleme ici les objet doivent d'abord êtres enregistrer dans la base pour avoir les id. insert UserManager doit etres appeler a la creation d'une photo. procedure stockée ?
     public static void insert (Context ctx, Photo photo, User user){
         ContentValues contVal = new ContentValues();
         contVal.put( CDataBase.userAtImage.idUser,user.getId());
@@ -32,20 +30,4 @@ public class UserAtPhotoManager {
     }
 
 
-
-    public static Photo[] getAllFromUser(Context ctx, User user){
-        ArrayList<Photo> retour;
-
-        SQLiteDatabase bd = ConnexionBD.getBd(ctx);
-        Cursor c = bd.rawQuery(queryGetAllFromUser, new String[]{String.valueOf(user.getId())});
-
-        while (c.moveToNext()){
-            retour.add(new Photo(c.getInt(c.getColumnIndex(CDataBase.userAtImage.))))
-        }
-
-
-
-
-        return retour;
-    }
 }
