@@ -19,7 +19,7 @@ import utils.CDataBase;
 
 public class PhotoManager {
 
-    public static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" inner join "+ CDataBase.image.nomTable + " on "+ CDataBase.userAtImage.idImage + " = "+ CDataBase.image.id +" where idUser = ?";
+    private static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" inner join "+ CDataBase.image.nomTable + " on "+ CDataBase.userAtImage.idImage + " = "+ CDataBase.image.id +" where idUser = ?";
 
     public static int insert(Context ctx, ContentValues contVal, Photo photo){
 
@@ -36,6 +36,8 @@ public class PhotoManager {
 
         // on doit changer la source selon le path sous lequel on a enregistrer la photo sur le server.
         contVal.put(CDataBase.image.src,photo.getSrc());
+
+        // recuperer id dans la bd
 
     }
 
