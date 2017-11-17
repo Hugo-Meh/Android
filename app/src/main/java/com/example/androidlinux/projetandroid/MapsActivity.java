@@ -53,8 +53,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
         CManagerMap = new ClusterManager<MyItem>(ctx,mMap);
+
+        OnClusterClick
         mMap.setOnCameraIdleListener(CManagerMap);
         for (int i=0;i<clusterMyItemList.size();i++){
             CManagerMap.addItem(clusterMyItemList.get(i));
