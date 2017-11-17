@@ -38,7 +38,7 @@ public class PhotoManager {
         contVal.put(CDataBase.image.src,photo.getSrc());
 
         // recuperer id dans la bd
-
+        return 0;
     }
 
     public static ArrayList<Photo> getAllFromUser(Context ctx, User user){
