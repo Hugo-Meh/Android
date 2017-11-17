@@ -19,7 +19,27 @@ import utils.CDataBase;
 
 public class PhotoManager {
 
-    public static final String queryGetAllFromUser = "select * from " + CDataBase.userAtImage.nomTable + " inner join " + CDataBase.image.nomTable + " on " + CDataBase.userAtImage.nomTable + " . " + CDataBase.userAtImage.idImage + " = " + CDataBase.image.nomTable + " . " + CDataBase.image.id +  " where idUser = ?;";
+    private static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" inner join "+ CDataBase.image.nomTable + " on "+ CDataBase.userAtImage.idImage + " = "+ CDataBase.image.id +" where idUser = ?";
+
+    public static int insert(Context ctx, ContentValues contVal, Photo photo){
+
+        // on doit envoyer l'image jpeg au server.
+
+
+        contVal = new ContentValues();
+// on enregistre les valeur de l'objet photo dans la table photo.
+        contVal.put(CDataBase.image.lat,photo.getLat());
+        contVal.put(CDataBase.image.lon,photo.getLon());
+
+        // conversion de la date en long.
+        contVal.put(CDataBase.image.date,photo.getDate().getTime());
+
+        // on doit changer la source selon le path sous lequel on a enregistrer la photo sur le server.
+        contVal.put(CDataBase.image.src,photo.getSrc());
+
+        // recuperer id dans la bd
+
+    }
 
     public static ArrayList<Photo> getAllFromUser(Context ctx, User user){
         ArrayList<Photo> retour = null;
@@ -32,23 +52,11 @@ public class PhotoManager {
             photo.setId(c.getInt(c.getColumnIndex(CDataBase.image.id)));
             photo.setLat(c.getFloat(c.getColumnIndex(CDataBase.image.lat)));
             photo.setLon(c.getFloat(c.getColumnIndex(CDataBase.image.lon)));
-
-            // SQLite ne store pas de type Date enregistre la date en miliseconde comme un long et recupérer un mong puis convertir en Date
-            photo.setDate(new Date((c.getLong(c.getColumnIndex(CDataBase.image.date)))));
-
             photo.setSrc(c.getString(c.getColumnIndex(CDataBase.image.src)));
+            photo.setDate(new Date(c.getLong(c.getColumnIndex(CDataBase.image.date))));
 
             retour.add(photo);
         }
         return retour;
     }
-
-    public static void insert (Context ctx, Photo photo){
-
-        ContentValues contVal = new ContentValues();
-        contVal.put(CDataBase.image.id,photo.getId());
-        SQLiteDatabase bd = ConnexionBD.getBd(ctx);
-
-    }
-
 }
