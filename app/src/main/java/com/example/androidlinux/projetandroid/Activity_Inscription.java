@@ -1,22 +1,30 @@
 package com.example.androidlinux.projetandroid;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import utils.InscriptionRequestHttp;
 import utils.Md5;
 
 public class Activity_Inscription extends AppCompatActivity {
     EditText ed_nom,ed_prenom,ed_login,ed_password;
     Button btn_inscris;
+    Context ctx;
+    Activity_Inscription activity_inscription;
+    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +35,8 @@ public class Activity_Inscription extends AppCompatActivity {
         ed_login= (EditText) findViewById(R.id.ed__login_inscription);
         ed_password= (EditText) findViewById(R.id.ed__pwd_inscription);
         btn_inscris= (Button) findViewById(R.id.btn_valider_inscription);
-
-
+        activity_inscription=this;
+        ctx=this;
         btn_inscris.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -38,21 +46,14 @@ public class Activity_Inscription extends AppCompatActivity {
                 String login=ed_login.getText().toString();
                 String pwd= Md5.md5(ed_password.getText().toString());
                 Log.d("test","nom= "+nom+" prenom = "+prenom+ " login= "+login+"   pwd= "+pwd);
-                InetAddress ip;
-                try {
+                new InscriptionRequestHttp(ctx,activity_inscription).execute("inscription",nom,prenom,login,pwd);
 
-                    ip = InetAddress.getLocalHost();
-                    Log.d("Current IP address : " ,ip.getHostAddress());
-
-                } catch (UnknownHostException e) {
-
-                    e.printStackTrace();
-
-                }
             }
         });
 
 
 
     }
+
+
 }

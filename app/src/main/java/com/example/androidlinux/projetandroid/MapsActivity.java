@@ -46,7 +46,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         MyPhotoMarkers = new ArrayList<PhotoMarker>();
         ArrayList<MyItem> clusterMyItemList = new ArrayList<MyItem>();
 

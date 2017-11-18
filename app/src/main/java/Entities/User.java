@@ -1,12 +1,13 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by androidlinux on 14/11/17.
  */
 
-public class User {
+public class User implements Serializable{
     private int id;
     private String Fname;
     private String Lname;
@@ -15,6 +16,13 @@ public class User {
     private ArrayList<Integer> friendListId;
     private ArrayList<Integer> photoListId;
     private String token;
+
+    public User(String fname, String lname, String login, String pwd) {
+        Fname = fname;
+        Lname = lname;
+        this.login = login;
+        this.pwd = pwd;
+    }
 
     public User(String token) {
         this.token = token;

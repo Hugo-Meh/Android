@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,9 @@ public class ShowImage extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
                 ImageView img= new ImageView(ctx);
                 img.setImageBitmap(im);
-                img.setLayoutParams(new LinearLayout.LayoutParams(100,100));
+                img.setLayoutParams(new LinearLayout.LayoutParams(500,400));
                 builder.setView(img);
+
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -69,8 +71,15 @@ public class ShowImage extends AppCompatActivity {
             options.inScaled = true;
             options.inDither = false;
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Log.d("test", "" + imgFile.list().length);
+            Log.d("test", "nbimage" + imgFile.list().length);
+//            File f= new File(imgFile+"/CANADA");
+
             for (String s : imgFile.list()) {
+                File f= new File(imgFile+"/"+s);
+                Log.d("test", "listtab ="+String.valueOf(f.list()!=null));
+                Log.d("test", "absolute path ="+imgFile.getAbsolutePath()+"/"+s);
+                Log.d("test", "absolute path 2="+imgFile.getAbsolutePath());
+
                 String uripath = imgFile.getAbsolutePath() + File.separator + s;
                 Bitmap myBitmap = BitmapFactory.decodeFile(uripath, options);
                 bitmapTab.add(myBitmap);
