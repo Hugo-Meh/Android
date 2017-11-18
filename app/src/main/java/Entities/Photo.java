@@ -1,14 +1,12 @@
 package Entities;
 
-import com.google.maps.android.clustering.ClusterItem;
-
 import java.util.Date;
 
 /**
  * Created by androidlinux on 15/11/17.
  */
 
-public class Photo implements ClusterItem {
+public class Photo {
     private int id;
     private float lat;
     private float lon;
