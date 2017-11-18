@@ -23,9 +23,9 @@ public class GestionBd extends SQLiteOpenHelper {
 
     private static final String queryCreateImage = "CREATE TABLE "+ CDataBase.image.nomTable + " ("+
             CDataBase.image.id + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-            CDataBase.image.lat + " INTEGER  , " +
-            CDataBase.image.lon + " INTEGER  , " +
-            CDataBase.image.date + " TEXT);";
+            CDataBase.image.lat + " REAL  , " +
+            CDataBase.image.lon + " REAL  , " +
+            CDataBase.image.date + " INTEGER);";
 
     private static final String queryCreateUserAtImage = "CREATE TABLE "+ CDataBase.userAtImage.nomTable + " ("+
             CDataBase.userAtImage.idUser + " INTEGER , " +

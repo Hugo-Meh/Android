@@ -18,12 +18,13 @@ import utils.CDataBase;
 
 public class UserAtPhotoManager {
 
-    public static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" where idUser = ?";
+    //public static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" where idUser = ?";
 
-    public static void insert (Context ctx, Photo photo, User user){
+    public static void insert (Context ctx, int id, User user){
+
         ContentValues contVal = new ContentValues();
         contVal.put( CDataBase.userAtImage.idUser,user.getId());
-        contVal.put( CDataBase.userAtImage.idImage,photo.getId());
+        contVal.put( CDataBase.userAtImage.idImage,id);
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
         bd.insert(CDataBase.userAtImage.nomTable,null,contVal);
@@ -32,7 +33,7 @@ public class UserAtPhotoManager {
     }
 
 
-
+    // moved to PhotoManager
     /*public static ArrayList<Photo> getAllFromUser(Context ctx, User user){
         ArrayList<Photo> retour;
 
