@@ -11,11 +11,11 @@ import java.util.List;
  * Created by samsung on 17/11/2017.
  */
 
-public class UseaGeocoder {
+public final class UseaGeocoder {
     Geocoder geocoder;
 
-    public UseaGeocoder(Context ctx) {
-        geocoder = new Geocoder(ctx);
+    public UseaGeocoder(Context context) {
+        geocoder = new Geocoder(context);
     }
 
     public String getCountryName(double lat, double lon){

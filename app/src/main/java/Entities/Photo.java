@@ -1,5 +1,6 @@
 package Entities;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 import java.util.Date;
@@ -65,5 +66,10 @@ public class Photo implements ClusterItem {
 
     public void setSrc(String src) {
         this.src = src;
+    }
+
+    @Override
+    public LatLng getPosition() {
+        return null;
     }
 }
