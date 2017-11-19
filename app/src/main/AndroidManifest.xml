@@ -59,16 +59,16 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".ConnexionActivity">
-
-        </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Bravo" />
-        <activity android:name=".Activity_Inscription">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Bravo" />
+        <activity android:name=".Activity_Inscription">
+
         </activity>
         <activity android:name=".ChoixAct">
 

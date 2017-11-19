@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.androidlinux.projetandroid.ChoixAct">
 
     <Button
         android:id="@+id/Btn_new_camera_act_go_to_album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="afficher l'album"
-        />
+        android:text="afficher l'album" />
+
     <Button
-        android:text="lancer la camera"
         android:id="@+id/Btn_new_lunch_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:text="lancer la camera" />
+
+    <TextView
+        android:id="@+id/tv_choix_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -6,7 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.androidlinux.projetandroid.Activity_Inscription;
+import com.example.androidlinux.projetandroid.Bravo;
+import com.example.androidlinux.projetandroid.ChoixAct;
 import com.example.androidlinux.projetandroid.ConnexionActivity;
 import com.google.gson.Gson;
 
@@ -28,42 +29,42 @@ import Entities.User;
 import service.C;
 
 /**
- * Created by mohamed on 17-11-17.
+ * Created by mohamed on 17-11-19.
  */
 
-public class InscriptionRequestHttp extends AsyncTask<String, Long, String> {
+public class HttpOnStartApp extends AsyncTask<String,Long,String>{
     Context ctx;
-    Activity_Inscription activity_inscription;
+    ConnexionActivity connexionActivity;
 
-    public InscriptionRequestHttp(Context ctx, Activity_Inscription activity_inscription) {
+    public HttpOnStartApp(Context ctx, ConnexionActivity connexionActivity) {
         this.ctx = ctx;
-        this.activity_inscription = activity_inscription;
+        this.connexionActivity = connexionActivity;
     }
 
     @Override
     protected String doInBackground(String... params) {
-        String retour = "";
+        String retour="";
         HttpURLConnection conn = null;
         StringBuilder sb = new StringBuilder();
         String requestURL = C.adresseIp + params[0];
-        User u = new User(params[2], params[1], params[3], params[4]);
+        User u = new User(params[1]);
 
         URL url = null;
         try {
-            Gson gson = new Gson();
-            String json = gson.toJson(u);
+
+            Gson gson= new Gson();
+            String s=gson.toJson(u);
+            Log.d("test","json envoie ->"+s);
             url = new URL(requestURL);
             conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept", "application/json");
             conn.setDoInput(true);
             conn.setDoOutput(true);
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(json);
+            writer.write(s);
             writer.flush();
             writer.close();
             int responseCode = conn.getResponseCode();
@@ -88,23 +89,29 @@ public class InscriptionRequestHttp extends AsyncTask<String, Long, String> {
         } finally {
             conn.disconnect();
         }
+
+
         return retour;
     }
+
 
     @Override
     protected void onPostExecute(String s) {
         ViewUtils.stopProgressBar();
-
+        Log.d("get","on post execut   ->"+s);
         if (!s.equals("")) {
             Gson gson = new Gson();
             User u = gson.fromJson(s, User.class);
 
-            if (u.getToken().equals("-1")) {
-                Toast.makeText(ctx, "Votre login est deja utilisé", Toast.LENGTH_LONG).show();
-            } else {
-                Intent intent = new Intent(ctx, ConnexionActivity.class);
+            if (!u.getToken().equals("-1")) {
+                connexionActivity.SharedPreferenceSaveUser(u);
+                Intent intent = new Intent(ctx, ChoixAct.class);
+                intent.putExtra("token",u.getToken());
                 ctx.startActivity(intent);
+                connexionActivity.finish();
 
+            } else {
+                Toast.makeText(ctx, "Vous n'etes plus connecté veuillez verifier votre connexion", Toast.LENGTH_LONG).show();
             }
 
         } else {
@@ -115,6 +122,7 @@ public class InscriptionRequestHttp extends AsyncTask<String, Long, String> {
     @Override
     protected void onPreExecute() {
 
-        ViewUtils.startProgressDialog(ctx, "verification de l'inscription");
+        ViewUtils.startProgressDialog(ctx, "Connexion...");
     }
+
 }

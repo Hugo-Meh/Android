@@ -70,8 +70,8 @@ public class UserManager {
         while (c.moveToNext()){
             User aUser = new User();
             aUser.setId(c.getInt(c.getColumnIndex(CDataBase.user.id)));
-            aUser.setLname(c.getString(c.getColumnIndex(CDataBase.user.lName)));
-            aUser.setFname(c.getString(c.getColumnIndex(CDataBase.user.fName)));
+            aUser.setlName(c.getString(c.getColumnIndex(CDataBase.user.lName)));
+            aUser.setfName(c.getString(c.getColumnIndex(CDataBase.user.fName)));
 
             contact.add(aUser);
         }

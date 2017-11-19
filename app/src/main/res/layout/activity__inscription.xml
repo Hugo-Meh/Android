@@ -53,7 +53,7 @@
             android:layout_weight="1"
             />
         <EditText
-            android:text="mohamed_projet_isi"
+            android:text="android_projet_isi"
             android:layout_margin="10dp"
             android:id="@+id/ed__login_inscription"
             android:layout_width="match_parent"

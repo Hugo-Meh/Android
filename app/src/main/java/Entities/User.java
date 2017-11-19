@@ -7,19 +7,29 @@ import java.util.ArrayList;
  * Created by androidlinux on 14/11/17.
  */
 
-public class User implements Serializable{
+public class User implements Serializable {
     private int id;
-    private String Fname;
-    private String Lname;
+    private String fName;
+    private String lName;
     private String login;
     private String pwd;
     private ArrayList<Integer> friendListId;
     private ArrayList<Integer> photoListId;
     private String token;
 
-    public User(String fname, String lname, String login, String pwd) {
-        Fname = fname;
-        Lname = lname;
+
+    public User(int id, String fName, String lName, String login, String pwd, String token) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.login = login;
+        this.pwd = pwd;
+        this.token = token;
+    }
+
+    public User(String fName, String lName, String login, String pwd) {
+        this.fName = fName;
+        this.lName = lName;
         this.login = login;
         this.pwd = pwd;
     }
@@ -44,20 +54,20 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public String getFname() {
-        return Fname;
+    public String getfName() {
+        return fName;
     }
 
-    public void setFname(String fname) {
-        Fname = fname;
+    public void setfName(String fName) {
+        fName = fName;
     }
 
-    public String getLname() {
-        return Lname;
+    public String getlName() {
+        return lName;
     }
 
-    public void setLname(String lname) {
-        Lname = lname;
+    public void setlName(String lName) {
+        lName = lName;
     }
 
     public ArrayList<Integer> getFriendListId() {
@@ -98,5 +108,10 @@ public class User implements Serializable{
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "id:\"" + id +"\"fName:\"" + fName + "\",lName:\"" + lName + "\",login:\"" + login + "\",pwd:\"" + pwd + "\",token\""+token+"\"";
     }
 }

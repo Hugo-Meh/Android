@@ -1,6 +1,8 @@
 package com.example.androidlinux.projetandroid;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -19,7 +21,15 @@ public class Bravo extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.textTest);
         String infoUserDB;
         User user;
-        user = UserManager.verifyUser(ctx,"hugo", "abc123");
-        tv.setText(user.getLogin()+" "+user.getPwd());
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(ctx);
+        String token=sharedPreferences.getString("token","");
+        if(!token.equals("")){
+            String fName=sharedPreferences.getString("fName","");
+            String lName=sharedPreferences.getString("lName","");
+            int id=sharedPreferences.getInt("id",0);
+            tv.setText(fName+" "+lName);
+        }
+//        user = UserManager.verifyUser(ctx,"hugo", "abc123");
+//        tv.setText(user.getLogin()+" "+user.getPwd());
     }
 }
