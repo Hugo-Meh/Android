@@ -22,5 +22,5 @@ public class PersoClusterManager extends ClusterManager<Photo> {
         super(context, map, markerManager);
     }
 
-    OnClusterClickListener()
+
 }

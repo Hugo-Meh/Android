@@ -1,20 +1,38 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by androidlinux on 14/11/17.
  */
 
-public class User {
+public class User implements Serializable {
     private int id;
-    private String Fname;
-    private String Lname;
+    private String fName;
+    private String lName;
     private String login;
     private String pwd;
     private ArrayList<Integer> friendListId;
     private ArrayList<Integer> photoListId;
     private String token;
+
+
+    public User(int id, String fName, String lName, String login, String pwd, String token) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.login = login;
+        this.pwd = pwd;
+        this.token = token;
+    }
+
+    public User(String fName, String lName, String login, String pwd) {
+        this.fName = fName;
+        this.lName = lName;
+        this.login = login;
+        this.pwd = pwd;
+    }
 
     public User(String token) {
         this.token = token;
@@ -36,20 +54,20 @@ public class User {
         this.id = id;
     }
 
-    public String getFname() {
-        return Fname;
+    public String getfName() {
+        return fName;
     }
 
-    public void setFname(String fname) {
-        Fname = fname;
+    public void setfName(String fName) {
+        fName = fName;
     }
 
-    public String getLname() {
-        return Lname;
+    public String getlName() {
+        return lName;
     }
 
-    public void setLname(String lname) {
-        Lname = lname;
+    public void setlName(String lName) {
+        lName = lName;
     }
 
     public ArrayList<Integer> getFriendListId() {
@@ -90,5 +108,10 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "id:\"" + id +"\"fName:\"" + fName + "\",lName:\"" + lName + "\",login:\"" + login + "\",pwd:\"" + pwd + "\",token\""+token+"\"";
     }
 }

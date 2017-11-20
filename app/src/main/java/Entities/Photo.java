@@ -1,5 +1,6 @@
 package Entities;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 import java.util.Date;
@@ -10,12 +11,12 @@ import java.util.Date;
 
 public class Photo implements ClusterItem {
     private int id;
-    private float lat;
-    private float lon;
+    private double lat;
+    private double lon;
     private Date date;
     private String src;
 
-    public Photo(int id, float lat, float lon, Date date, String src) {
+    public Photo(int id, double lat, double lon, Date date, String src) {
         this.id = id;
         this.lat = lat;
         this.lon = lon;
@@ -35,7 +36,7 @@ public class Photo implements ClusterItem {
         this.id = id;
     }
 
-    public float getLat() {
+    public double getLat() {
         return lat;
     }
 
@@ -43,7 +44,7 @@ public class Photo implements ClusterItem {
         this.lat = lat;
     }
 
-    public float getLon() {
+    public double getLon() {
         return lon;
     }
 
@@ -65,5 +66,10 @@ public class Photo implements ClusterItem {
 
     public void setSrc(String src) {
         this.src = src;
+    }
+
+    @Override
+    public LatLng getPosition() {
+        return null;
     }
 }

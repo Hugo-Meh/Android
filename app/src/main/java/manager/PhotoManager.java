@@ -21,7 +21,8 @@ public class PhotoManager {
 
     private static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" inner join "+ CDataBase.image.nomTable + " on "+ CDataBase.userAtImage.idImage + " = "+ CDataBase.image.id +" where idUser = ?";
 
-    public static int insert(Context ctx, ContentValues contVal, Photo photo){
+    public static long insert(Context ctx, ContentValues contVal, Photo photo){
+        long id;
 
         // on doit envoyer l'image jpeg au server.
 
@@ -34,15 +35,18 @@ public class PhotoManager {
         // conversion de la date en long.
         contVal.put(CDataBase.image.date,photo.getDate().getTime());
 
-        // on doit changer la source selon le path sous lequel on a enregistrer la photo sur le server.
+        // on doit changer la source selon le path sous lequel on a enregistrer la photo sur le server apache.
         contVal.put(CDataBase.image.src,photo.getSrc());
 
         // recuperer id dans la bd
-        return 0;
+        SQLiteDatabase bd = ConnexionBD.getBd(ctx);
+        id = bd.insert(CDataBase.user.nomTable, null, contVal);
+
+        return id;
     }
 
     public static ArrayList<Photo> getAllFromUser(Context ctx, User user){
-        ArrayList<Photo> retour = null;
+        ArrayList<Photo> retour = new ArrayList<Photo>();
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
         Cursor c = bd.rawQuery(queryGetAllFromUser, new String[]{String.valueOf(user.getId())});
