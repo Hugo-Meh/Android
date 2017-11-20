@@ -7,6 +7,7 @@
     tools:context="com.example.androidlinux.projetandroid.Bravo">
 
     <TextView
+        android:hint="je suis arrive"
         android:id="@+id/textTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
