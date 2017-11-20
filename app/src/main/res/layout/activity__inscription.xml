@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.example.androidlinux.projetandroid.Activity_Inscription">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="INSCRIPTION"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textSize="10pt"
+
+            />
+        <EditText
+            android:text="Nefzi"
+            android:layout_margin="10dp"
+            android:id="@+id/ed__nom_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:hint="Votre nom"
+            android:layout_weight="1"
+            />
+        <EditText
+            android:text="mohamed"
+            android:layout_margin="10dp"
+            android:id="@+id/ed__prenom_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:hint="Votre prenom"
+            android:layout_weight="1"
+            />
+        <EditText
+            android:text="mohamed_projet_isi"
+            android:layout_margin="10dp"
+            android:id="@+id/ed__login_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:hint="Identifiant"
+            android:layout_weight="1"
+            />
+        <EditText
+            android:text="isi_android"
+            android:layout_margin="10dp"
+            android:id="@+id/ed__pwd_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:hint="Mot de Passe"
+            android:layout_weight="1"
+            android:inputType="textPassword"
+            />
+        <Button
+            android:id="@+id/btn_valider_inscription"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="S'incrire"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+</LinearLayout>
+
+</LinearLayout>
