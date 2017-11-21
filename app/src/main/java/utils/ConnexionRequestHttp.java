@@ -2,19 +2,12 @@ package utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.androidlinux.projetandroid.Bravo;
 import com.example.androidlinux.projetandroid.ChoixAct;
 import com.example.androidlinux.projetandroid.ConnexionActivity;
 import com.google.gson.Gson;
-
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -28,9 +21,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
-
 import Entities.User;
 import service.C;
+
 
 /**
  * Created by mohamed on 17-11-18.
@@ -48,7 +41,6 @@ public class ConnexionRequestHttp extends AsyncTask<String,Long, String> {
     @Override
     protected String doInBackground(String... params) {
         String retour="";
-
         HttpURLConnection conn = null;
         StringBuilder sb = new StringBuilder();
         String requestURL = C.adresseIp + params[0];

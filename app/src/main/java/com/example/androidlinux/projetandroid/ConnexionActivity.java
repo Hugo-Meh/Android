@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Date;
 
 import Entities.User;
 import manager.UserManager;
@@ -41,7 +42,10 @@ public class ConnexionActivity extends AppCompatActivity {
         EditPwd = (EditText) findViewById(R.id.edtPwd);
         //new MysharedPerfermence(this).removeKey("token");
         confirmToken();
-
+        Date d= new Date();
+        Log.d("test", ""+d);
+        Long s= d.getTime();
+        Log.d("test", ""+s);
         btnConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -29,39 +29,47 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import utils.HttpUploadPictureToserver;
 import utils.MyLocationListener;
+import utils.UseaGeocoder;
+import utils.MysharedPerfermence;
 
 public class NewCameraActivity extends AppCompatActivity implements LocationListener {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int MY_REQUEST_CODE = 35;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
+    String imageFileName;
     String mCurrentPhotoPath;
     Context ctx;
     int id;
-
     LocationManager locationManager;
+    String provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_camera);
-        locationManager
-                = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-        ctx = this;
-        dispatchTakePictureIntent();
-        if (checkLocationPermission()) {
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 400, 1, this);
-            Location location = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-            Log.d("lat", String.valueOf(location.getLatitude()));
-            Log.d("lon", String.valueOf(location.getLongitude()));
-        }
-    }
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+        provider = locationManager.getBestProvider(new Criteria(), false);
+
+
+        ctx = this;
+
+        if ( Build.VERSION.SDK_INT >= 23) {
+             while (checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        MY_REQUEST_CODE);
+
+            }
+            dispatchTakePictureIntent();
+        }
+        else{
+            dispatchTakePictureIntent();
+        }
 
 
     }
@@ -71,10 +79,27 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            galleryAddPic();
+            String country = "";
+            double lat=0;
+            double lon=0;
+            if(checkLocationPermission()){
+                locationManager.requestLocationUpdates(provider, 400, 1, this);
+                Location location = locationManager.getLastKnownLocation(provider);
+                lat = location.getLatitude();
+                lon = location.getLongitude();
+                Log.d("lat", String.valueOf(lat));
+                Log.d("lon", String.valueOf(lon));
+                UseaGeocoder useaGeocoder = new UseaGeocoder(ctx);
+                country = useaGeocoder.getCountryName(lat,lon);
+                Log.d("country", country);
+            }
+            //            galleryAddPic();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            saveImage(imageBitmap);
+            saveImage(imageBitmap,country);
+            Log.d("test","test on result act lon ="+lon+"  lat="+lat+"  src= "+imageFileName);
+            new HttpUploadPictureToserver(imageBitmap,ctx,imageFileName,lat,lon).execute("uploadImage");
+
             finish();
 
         }
@@ -82,27 +107,14 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
 
     // creer un titre de fichier "image" unique
     @SuppressLint("MissingPermission")
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        /*LocationManager lm = (LocationManager) getSystemService(ctx.LOCATION_SERVICE);
-
-        LocationListener ls = new MyLocationListener(ctx);
-
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ls);
-        Location lo=lm.getLastKnownLocation(lm.GPS_PROVIDER);
-
-        Log.d("test","lat ="+lo.getLatitude()+"  long= "+lo.getLongitude());*/
+    private File createImageFile(String country) throws IOException {
 
 
-        /*if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-
-            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
-                    (getSystemService(ctx.LOCATION_SERVICE)).MY_PERMISSION_ACCESS_COURSE_LOCATION );
-        }*/
+        String login=new MysharedPerfermence(ctx).RecoverSharedPermenceUser().getLogin();
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+"/CANADA");
+        String imageFileName = login +"_"+ timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+country);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -119,10 +131,10 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
-    private void saveImage(Bitmap finalBitmap) {
+    private void saveImage(Bitmap finalBitmap, String country) {
 //        LocationManager locManager = new LocationManager();
         try {
-            File file1=createImageFile();
+            File file1=createImageFile(country);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,9 +153,8 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
         }
     }
 
-
     public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
+        while (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -155,8 +166,8 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
-                        .setTitle("activer location")
-                        .setMessage("vous devez accepter de donner a l'application l'acces au donne GPS pour prendre une photo")
+                        .setTitle("Authoriser la localisation")
+                        .setMessage("pour utiliser cette fonctionalitée vous devez acepter de partager votre position")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -177,9 +188,8 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     @Override
@@ -198,7 +208,7 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
                             == PackageManager.PERMISSION_GRANTED) {
 
                         //Request location updates:
-                        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,400,1,this);
+                        locationManager.requestLocationUpdates(provider, 400, 1, this);
                     }
 
                 } else {
@@ -213,30 +223,36 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
         }
     }
 
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == MY_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Now user should be able to use camera
+            }
+            else {
+                // Your app will not have this permission. Turn off all functions
+                // that require this permission or it will force close like your
+                // original question
+            }
+        }
+    }
+
     @Override
     public void onLocationChanged(Location location) {
 
-            Double lat = location.getLatitude();
-            Double lng = location.getLongitude();
-
-            Log.i("Location info: Lat", lat.toString());
-            Log.i("Location info: Lng", lng.toString());
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+    public void onStatusChanged(String s, int i, Bundle bundle) {
 
     }
 
     @Override
-    public void onProviderEnabled(String provider) {
+    public void onProviderEnabled(String s) {
 
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
+    public void onProviderDisabled(String s) {
 
     }
 }
-
-
