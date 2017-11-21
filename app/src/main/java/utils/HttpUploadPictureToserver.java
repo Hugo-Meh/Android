@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -61,11 +63,13 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
 
         URL url = null;
         try {
-            Photo p = new Photo(latitude, longitude, new Date(), filename);
-            Gson gson = new Gson();
-            String s = gson.toJson(p);
 
-            Log.d("String", requestURL + "  ma photo   " + s);
+            out = new BufferedOutputStream(conn.getOutputStream());
+            String image= FormatBitmap.encodeTobase64(bitmap);
+            Photo p = new Photo(latitude, longitude, new Date(), filename,image);
+            Gson gson = new Gson();
+            String imageTosend= gson.toJson(p);
+            Log.d("String", requestURL + "  ma photo   " + imageTosend);
             url = new URL(requestURL);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -76,26 +80,25 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
 
-
-            out = new BufferedOutputStream(conn.getOutputStream());
-            String image= FormatBitmap.encodeTobase64(bitmap);
-            String imageJason=gson.toJson(image);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
 
-            writer.write(imageJason);
+            writer.write(imageTosend);
             writer.flush();
             writer.close();
             int response=conn.getResponseCode();
             Log.d("test",""+response);
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    in, "UTF-8"));
-            sb = new StringBuilder();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+            if(response==HttpsURLConnection.HTTP_OK) {
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        in, "UTF-8"));
+                sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                in.close();
             }
-            in.close();
+
             retour = sb.toString();
 
 
