@@ -79,19 +79,23 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            String country = "";
+            String country = "DEFAULTDIRECETORY";
             double lat=0;
             double lon=0;
             if(checkLocationPermission()){
                 locationManager.requestLocationUpdates(provider, 400, 1, this);
                 Location location = locationManager.getLastKnownLocation(provider);
-                lat = location.getLatitude();
-                lon = location.getLongitude();
-                Log.d("lat", String.valueOf(lat));
-                Log.d("lon", String.valueOf(lon));
-                UseaGeocoder useaGeocoder = new UseaGeocoder(ctx);
-                country = useaGeocoder.getCountryName(lat,lon);
-                Log.d("country", country);
+                if(location!=null) {
+                    lat = location.getLatitude();
+                    lon = location.getLongitude();
+                    UseaGeocoder useaGeocoder = new UseaGeocoder(ctx);
+                    country = useaGeocoder.getCountryName(lat,lon);
+                    Log.d("country", country);
+                    Log.d("lat", String.valueOf(lat));
+                    Log.d("lon", String.valueOf(lon));
+                }
+
+
             }
             //            galleryAddPic();
             Bundle extras = data.getExtras();
@@ -113,8 +117,8 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
         String login=new MysharedPerfermence(ctx).RecoverSharedPermenceUser().getLogin();
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = login +"_"+ timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+country);
+        imageFileName = login +"_"+ timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+File.separator+country);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */

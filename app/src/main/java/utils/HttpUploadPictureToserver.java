@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -63,13 +64,12 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
 
         URL url = null;
         try {
-
-            out = new BufferedOutputStream(conn.getOutputStream());
             String image= FormatBitmap.encodeTobase64(bitmap);
             Photo p = new Photo(latitude, longitude, new Date(), filename,image);
+
             Gson gson = new Gson();
             String imageTosend= gson.toJson(p);
-            Log.d("String", requestURL + "  ma photo   " + imageTosend);
+
             url = new URL(requestURL);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -79,9 +79,8 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
             conn.setDoOutput(true);
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-
+            out = new BufferedOutputStream(conn.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-
             writer.write(imageTosend);
             writer.flush();
             writer.close();
@@ -100,6 +99,7 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
             }
 
             retour = sb.toString();
+            Log.d("test",retour);
 
 
         } catch (ProtocolException e) {
@@ -110,6 +110,16 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
             e.printStackTrace();
         }
         return retour;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        ViewUtils.startProgressDialog(ctx,"En cours de chargement de l'image");
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+      //  ViewUtils.stopProgressBar();
     }
 }
 

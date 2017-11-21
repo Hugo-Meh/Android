@@ -78,6 +78,6 @@ public class Photo {
 
     @Override
     public String toString() {
-        return "\"id:\""+id+"\",lat:\""+lat+"\",lon:\""+lon+"\",date:\""+date+"\",src:\""+src+"\",base64:"+base64+"\"";
+        return "\"id:\""+id+"\",lat:\""+lat+"\",lon:\""+lon+"\",date:\""+date+"\",src:\""+src+"\",base64:\""+base64+"\"";
     }
 }

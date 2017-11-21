@@ -55,10 +55,14 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ConnexionActivity" />
+        <activity android:name=".ConnexionActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+
+        </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Bravo" />
-        <activity android:name=".Activity_Inscription" />
+        <activity android:name=".Activity_Inscription" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity android:name=".ChoixAct" />
         <activity android:name=".NewCameraActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
@@ -72,11 +76,7 @@
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MapActivity"
