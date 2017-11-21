@@ -10,20 +10,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,15 +26,17 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import utils.HttpUploadPictureToserver;
 import utils.MyLocationListener;
 import utils.UseaGeocoder;
+import utils.MysharedPerfermence;
 
-public class NewCameraActivity extends AppCompatActivity implements LocationListener {
+public class NewCameraActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int MY_REQUEST_CODE = 35;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
+    String imageFileName;
     String mCurrentPhotoPath;
     Context ctx;
     int id;
@@ -48,7 +45,6 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_camera);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -75,31 +71,32 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     //    //recupere l'image capturé
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             String country = "";
+            double lat=0;
+            double lon=0;
             if(checkLocationPermission()){
                 locationManager.requestLocationUpdates(provider, 400, 1, this);
                 Location location = locationManager.getLastKnownLocation(provider);
-                double lat = location.getLatitude();
-                double lon = location.getLongitude();
+                lat = location.getLatitude();
+                lon = location.getLongitude();
                 Log.d("lat", String.valueOf(lat));
                 Log.d("lon", String.valueOf(lon));
                 UseaGeocoder useaGeocoder = new UseaGeocoder(ctx);
                 country = useaGeocoder.getCountryName(lat,lon);
                 Log.d("country", country);
             }
-//            galleryAddPic();
+            //            galleryAddPic();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             saveImage(imageBitmap,country);
+            Log.d("test","test on result act lon ="+lon+"  lat="+lat+"  src= "+imageFileName);
+            new HttpUploadPictureToserver(imageBitmap,ctx,imageFileName,lat,lon).execute("uploadImage");
+
             finish();
 
         }
@@ -108,18 +105,12 @@ public class NewCameraActivity extends AppCompatActivity implements LocationList
     // creer un titre de fichier "image" unique
     @SuppressLint("MissingPermission")
     private File createImageFile(String country) throws IOException {
-        // Create an image file name
-//        LocationManager lm = (LocationManager) getSystemService(ctx.LOCATION_SERVICE);
-//
-//        LocationListener ls = new MyLocationListener(ctx);
-//
-//        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ls);
-//        Location lo=lm.getLastKnownLocation(lm.GPS_PROVIDER);
-//
-//        Log.d("test","lat ="+lo.getLatitude()+"  long= "+lo.getLongitude());
+
+
+        String login=new MysharedPerfermence(ctx).RecoverSharedPermenceUser().getLogin();
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String imageFileName = login +"_"+ timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+country);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
