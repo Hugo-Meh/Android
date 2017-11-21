@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.google.android.gms.maps.GoogleMap;
 
 public class MapActivity extends AppCompatActivity {
+
     LinearLayout menuTop, menuBottom, mainLayout, map;
     GoogleMap googleMap;
     @Override
@@ -22,12 +23,12 @@ public class MapActivity extends AppCompatActivity {
         menuBottom = new LinearLayout(this);
         mainLayout = new LinearLayout(this);
 
-        menuTop = (LinearLayout) getLayoutInflater().inflate(R.layout.menu_top, (LinearLayout) map.findViewById(R.id.menuTop), false);
-        menuBottom = (LinearLayout) getLayoutInflater().inflate(R.layout.menu_bottom, (LinearLayout) map.findViewById(R.id.menuBottom), false);
-        mainLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.map_main, (LinearLayout) map.findViewById(R.id.main_layout), false);
+        getLayoutInflater().inflate(R.layout.menu_top, (LinearLayout) map.findViewById(R.id.menu_top));
+        getLayoutInflater().inflate(R.layout.menu_bottom, (LinearLayout) map.findViewById(R.id.menu_bottom));
+        getLayoutInflater().inflate(R.layout.map_main, (LinearLayout) map.findViewById(R.id.main_layout));
 
-        map.addView(menuTop);
+        /*map.addView(menuTop);
         map.addView(mainLayout);
-        map.addView(menuBottom);
+        map.addView(menuBottom);*/
     }
 }

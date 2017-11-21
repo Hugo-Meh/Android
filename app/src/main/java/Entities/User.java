@@ -59,7 +59,8 @@ public class User implements Serializable {
     }
 
     public void setfName(String fName) {
-        fName = fName;
+
+        this.fName = fName;
     }
 
     public String getlName() {
@@ -67,7 +68,8 @@ public class User implements Serializable {
     }
 
     public void setlName(String lName) {
-        lName = lName;
+
+        this.lName = lName;
     }
 
     public ArrayList<Integer> getFriendListId() {
