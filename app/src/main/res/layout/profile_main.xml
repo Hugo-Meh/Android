@@ -54,42 +54,12 @@
         android:layout_weight="3"
         android:layout_margin="5dp"
         >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/elephant"
-            android:scaleType="fitXY"
-            />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        >
-        <Button
-            android:id="@+id/Btn_new_camera_act_go_to_album"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="afficher l'album"
-            android:layout_margin="10dp"
-            />
-        <Button
-            android:text="lancer la camera"
-            android:id="@+id/Btn_new_lunch_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            />
-        <Button
-            android:id="@+id/Btn_new_camera_act_go_to_album2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="afficher l'album2"
-            android:layout_margin="10dp"
-            />
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
     </LinearLayout>
 
 </LinearLayout>
