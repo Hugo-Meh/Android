@@ -66,25 +66,29 @@
         <activity android:name=".ChoixAct" />
         <activity android:name=".NewCameraActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity android:name=".ShowImage" />
         <activity
             android:name=".ProfileActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
         <activity
             android:name=".MapActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
-        <activity android:name=".ContactActivity">
 
         </activity>
+        <activity android:name=".ContactActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+
+
+
+
     </application>
 
 </manifest>
