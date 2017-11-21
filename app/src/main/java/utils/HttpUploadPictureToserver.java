@@ -75,7 +75,7 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
             conn.setDoOutput(true);
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            
+
 
             out = new BufferedOutputStream(conn.getOutputStream());
             String image= FormatBitmap.encodeTobase64(bitmap);
