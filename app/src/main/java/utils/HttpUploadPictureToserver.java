@@ -39,10 +39,10 @@ public class HttpUploadPictureToserver extends AsyncTask<String, Long, String> {
     Bitmap bitmap;
     String filename;
     Context ctx;
-    Long latitude;
-    Long longitude;
+    double latitude;
+    double longitude;
 
-    public HttpUploadPictureToserver(Bitmap bitmap, Context ctx, String filename, Long latitude, Long longitude) {
+    public HttpUploadPictureToserver(Bitmap bitmap, Context ctx, String filename, double latitude, double longitude) {
         this.bitmap = bitmap;
         this.ctx = ctx;
         this.filename = filename;

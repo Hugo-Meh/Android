@@ -10,8 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -31,7 +34,7 @@ import utils.MyLocationListener;
 import utils.UseaGeocoder;
 import utils.MysharedPerfermence;
 
-public class NewCameraActivity extends AppCompatActivity {
+public class NewCameraActivity extends AppCompatActivity implements LocationListener {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int MY_REQUEST_CODE = 35;
