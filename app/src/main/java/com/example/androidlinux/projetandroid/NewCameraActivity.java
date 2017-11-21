@@ -24,15 +24,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import utils.HttpUploadPictureToserver;
 import utils.MyLocationListener;
+import utils.MysharedPerfermence;
 
 public class NewCameraActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
+    String imageFileName;
     String mCurrentPhotoPath;
     Context ctx;
     int id;
+    Long latitude=6056L;
+    Long longitude =6008L;
 
 
     @Override
@@ -50,10 +54,12 @@ public class NewCameraActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            galleryAddPic();
+
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             saveImage(imageBitmap);
+            Log.d("test","test on result act lon ="+longitude+"  lat="+latitude+"  src= "+imageFileName);
+            new HttpUploadPictureToserver(imageBitmap,ctx,imageFileName,latitude,longitude).execute("uploadImage");
             finish();
 
         }
@@ -62,19 +68,13 @@ public class NewCameraActivity extends AppCompatActivity {
     // creer un titre de fichier "image" unique
     @SuppressLint("MissingPermission")
     private File createImageFile() throws IOException {
-        // Create an image file name
-//        LocationManager lm = (LocationManager) getSystemService(ctx.LOCATION_SERVICE);
-//
-//        LocationListener ls = new MyLocationListener(ctx);
-//
-//        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ls);
-//        Location lo=lm.getLastKnownLocation(lm.GPS_PROVIDER);
-//
-//        Log.d("test","lat ="+lo.getLatitude()+"  long= "+lo.getLongitude());
+
+
+        String login=new MysharedPerfermence(ctx).RecoverSharedPermenceUser().getLogin();
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+"/CANADA");
+        imageFileName = login +"_"+ timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -103,7 +103,7 @@ public class NewCameraActivity extends AppCompatActivity {
         if (file.exists ()) file.delete ();
         try {
             FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
             out.flush();
             out.close();

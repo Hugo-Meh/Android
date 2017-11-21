@@ -21,6 +21,14 @@ public class Photo {
         this.src = src;
     }
 
+
+    public Photo(double lat, double lon, Date date,String src) {
+        this.lat = lat;
+        this.lon = lon;
+        this.date = date;
+        this.src = src;
+    }
+
     public Photo() {
 
     }
@@ -63,5 +71,11 @@ public class Photo {
 
     public void setSrc(String src) {
         this.src = src;
+    }
+
+
+    @Override
+    public String toString() {
+        return "\"id:\""+id+"\"lat:\""+lat+"\"lon:\""+lon+"\"date:\""+date+"\"src:\""+src+"\"";
     }
 }
