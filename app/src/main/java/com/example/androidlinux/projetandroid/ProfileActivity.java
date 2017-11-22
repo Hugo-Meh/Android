@@ -26,13 +26,18 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
         mainLayout = new LinearLayout(this);
 
         getLayoutInflater().inflate(R.layout.menu_top, (LinearLayout) profile.findViewById(R.id.menu_top));
-        getLayoutInflater().inflate(R.layout.menu_bottom, (LinearLayout) profile.findViewById(R.id.menu_bottom));
         getLayoutInflater().inflate(R.layout.profile_main, (LinearLayout) profile.findViewById(R.id.main_layout));
+        getLayoutInflater().inflate(R.layout.menu_bottom, (LinearLayout) profile.findViewById(R.id.menu_bottom));
+
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        /*profile.addView(menuTop);
+        profile.addView(mainLayout);
+        profile.addView(menuBottom);*/
 
 
 

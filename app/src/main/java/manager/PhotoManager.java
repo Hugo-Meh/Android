@@ -61,6 +61,7 @@ public class PhotoManager {
 
             retour.add(photo);
         }
+        bd.close();
         return retour;
     }
 }
