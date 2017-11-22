@@ -1,19 +1,18 @@
 package Adapter;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.androidlinux.projetandroid.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Entities.User;
 
@@ -21,10 +20,10 @@ import Entities.User;
  * Created by androidlinux on 20/11/17.
  */
 
-public class ContactAdapter extends ArrayAdapter<User> {
+public class ContactAdapter extends ArrayAdapter<User>  {
     ArrayList<User> Contact;
     Context ctx;
-    public ContactAdapter(Context context,int resource,List<User> objects) {
+    public ContactAdapter(Context context, int resource, ArrayList<User> objects) {
         super(context, resource, objects);
         ctx = context;
     }
@@ -50,4 +49,7 @@ public class ContactAdapter extends ArrayAdapter<User> {
 
         return convertView;
     }
+
+
+
 }

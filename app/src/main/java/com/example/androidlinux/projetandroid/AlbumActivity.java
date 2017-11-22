@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -16,14 +14,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import Adapter.ContactAdapter;
+import Adapter.StringAdapter;
 import Entities.User;
-import manager.UserManager;
 
-public class ContactActivity extends AppCompatActivity {
+public class AlbumActivity extends AppCompatActivity {
     Intent intent;
     LinearLayout menuTop, menuBottom, mainLayout,contact;
     ListView myList;
-    ArrayAdapter<User> listContactAdapteur;
+    ArrayAdapter<String> listStringAdapteur;
     Context ctx;
     ImageButton btn_profile,btn_contact,btn_album,btn_map,btn_camera,btn_deconnexion;
     @Override
@@ -34,29 +32,18 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.app);
         ctx =this;
         // ContactList test
-        ArrayList<User> contactList;
+        ArrayList<String> albumList =new ArrayList<String>();
 
-        contactList = UserManager.getAllContact(ctx);
-        listContactAdapteur = new ContactAdapter(ctx, R.layout.contact_listview_view, contactList);
+        for (int i=0; i<5;i++){
 
+            albumList.add("Canada");
+        }
+        //
+        listStringAdapteur = new StringAdapter(ctx, R.layout.string_view, albumList);
         myList = new ListView(ctx);
         myList.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        myList.setAdapter(listContactAdapteur);
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                User user = (User) adapterView.getItemAtPosition(i);
-                Log.d("mon user prenom", user.getfName());
-                Log.d("mon user nom", user.getlName());
-                Log.d("mon user id", String.valueOf(user.getId()));
+        myList.setAdapter(listStringAdapteur);
 
-                Intent intent = new Intent(ctx,ProfileActivity.class);
-                intent.putExtra("id",user.getId());
-                intent.putExtra("prenom",user.getfName());
-                intent.putExtra("nom",user.getlName());
-                ctx.startActivity(intent);
-            }
-        });
         contact = (LinearLayout) findViewById(R.id.App_layout);
 
         menuTop = new LinearLayout(this);
@@ -65,10 +52,8 @@ public class ContactActivity extends AppCompatActivity {
 
         menuTop = (LinearLayout) getLayoutInflater().inflate(R.layout.menu_top, (LinearLayout) contact.findViewById(R.id.menu_top), true);
         menuBottom = (LinearLayout) getLayoutInflater().inflate(R.layout.menu_bottom, (LinearLayout) contact.findViewById(R.id.menu_bottom), true);
-
         mainLayout = contact.findViewById(R.id.main_layout);
         mainLayout.addView(myList);
-
 
         btn_profile = (ImageButton) findViewById(R.id.btn_profile);
         btn_contact = (ImageButton) findViewById(R.id.btn_contact);

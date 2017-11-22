@@ -40,7 +40,7 @@ public class ConnexionActivity extends AppCompatActivity {
         btnInscription = (Button) findViewById(R.id.btnInscription);
         EditIdn = (EditText) findViewById(R.id.edtIdn);
         EditPwd = (EditText) findViewById(R.id.edtPwd);
-        //new MysharedPerfermence(this).removeKey("token");
+        new MysharedPerfermence(this).removeKey("token");
         confirmToken();
 
         btnConnexion.setOnClickListener(new View.OnClickListener() {

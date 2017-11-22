@@ -19,12 +19,15 @@ public class UserManager {
 
     private static final String queryLoginPwd = "select * from " + CDataBase.user.nomTable + " where login like ? and pwd like ?";
     private static final String queryToken = "select * from " + CDataBase.user.nomTable + " where token like ?";
-    private static final String queryGetAllContact = "select * from " + CDataBase.user.nomTable + " inner join " + CDataBase.userAtUser.nomTable + " on " + CDataBase.user.id + " = " + CDataBase.userAtUser.id1 + " where id = ?";
+    //private static final String queryGetAllContact = "select * from " + CDataBase.user.nomTable + " inner join " + CDataBase.userAtUser.nomTable + " on " + CDataBase.user.id + " = " + CDataBase.userAtUser.id1 + " where id = ?";
+    private static final String queryGetAllContact = "select * from " + CDataBase.user.nomTable;
 
     public static void insert (Context ctx, User user) {
         ContentValues contVal = new ContentValues();
-        contVal.put(CDataBase.user.login, user.getLogin());
-        contVal.put(CDataBase.user.pwd, user.getPwd());
+        contVal.put(CDataBase.user.id, user.getId());
+        contVal.put(CDataBase.user.fName, user.getfName());
+        contVal.put(CDataBase.user.lName, user.getlName());
+
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
         bd.insert(CDataBase.user.nomTable, null, contVal);
@@ -61,7 +64,7 @@ public class UserManager {
 
     }
 
-    public static ArrayList<User> getAllContact (Context ctx, User user){
+   /* public static ArrayList<User> getAllContact (Context ctx, User user){
         ArrayList<User> contact = new ArrayList<User>();
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);
@@ -76,6 +79,23 @@ public class UserManager {
             contact.add(aUser);
         }
 
+        return contact;
+    }*/
+
+    public static ArrayList<User> getAllContact (Context ctx){
+        ArrayList<User> contact = new ArrayList<User>();
+
+        SQLiteDatabase bd = ConnexionBD.getBd(ctx);
+        Cursor c = bd.rawQuery(queryGetAllContact,null);
+
+        while (c.moveToNext()){
+            User aUser = new User();
+            aUser.setId(c.getInt(c.getColumnIndex(CDataBase.user.id)));
+            aUser.setlName(c.getString(c.getColumnIndex(CDataBase.user.lName)));
+            aUser.setfName(c.getString(c.getColumnIndex(CDataBase.user.fName)));
+
+            contact.add(aUser);
+        }
         return contact;
     }
 
