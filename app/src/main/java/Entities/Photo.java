@@ -12,6 +12,7 @@ public class Photo {
     private double lon;
     private Date date;
     private String src;
+    String base64;
 
     public Photo(int id, double lat, double lon, Date date, String src) {
         this.id = id;
@@ -21,12 +22,18 @@ public class Photo {
         this.src = src;
     }
 
+    public Photo(int id, double lat, double lon) {
+        this.id = id;
+        this.lat = lat;
+        this.lon = lon;
+    }
 
-    public Photo(double lat, double lon, Date date,String src) {
+    public Photo(double lat, double lon, Date date, String src, String base64) {
         this.lat = lat;
         this.lon = lon;
         this.date = date;
         this.src = src;
+        this.base64=base64;
     }
 
     public Photo() {
@@ -76,6 +83,6 @@ public class Photo {
 
     @Override
     public String toString() {
-        return "\"id:\""+id+"\"lat:\""+lat+"\"lon:\""+lon+"\"date:\""+date+"\"src:\""+src+"\"";
+        return "\"id:\""+id+"\",lat:\""+lat+"\",lon:\""+lon+"\",date:\""+date+"\",src:\""+src+"\",base64:\""+base64+"\"";
     }
 }

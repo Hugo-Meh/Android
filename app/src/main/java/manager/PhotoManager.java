@@ -21,19 +21,19 @@ public class PhotoManager {
 
     private static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" inner join "+ CDataBase.image.nomTable + " on "+ CDataBase.userAtImage.idImage + " = "+ CDataBase.image.id +" where idUser = ?";
 
-    public static long insert(Context ctx, ContentValues contVal, Photo photo){
+    public static long insert(Context ctx, Photo photo){
         long id;
 
         // on doit envoyer l'image jpeg au server.
 
-
+        ContentValues contVal;
         contVal = new ContentValues();
 // on enregistre les valeur de l'objet photo dans la table photo.
         contVal.put(CDataBase.image.lat,photo.getLat());
         contVal.put(CDataBase.image.lon,photo.getLon());
 
         // conversion de la date en long.
-        contVal.put(CDataBase.image.date,photo.getDate().getTime());
+        //contVal.put(CDataBase.image.date,photo.getDate().getTime());
 
         // on doit changer la source selon le path sous lequel on a enregistrer la photo sur le server apache.
         contVal.put(CDataBase.image.src,photo.getSrc());

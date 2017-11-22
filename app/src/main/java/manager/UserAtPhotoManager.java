@@ -20,7 +20,7 @@ public class UserAtPhotoManager {
 
     //public static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" where idUser = ?";
 
-    public static void insert (Context ctx, int id, int idu){
+    public static void insert (Context ctx, int id,int idu){
 
         ContentValues contVal = new ContentValues();
         contVal.put( CDataBase.userAtImage.idUser,idu);
