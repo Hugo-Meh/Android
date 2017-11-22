@@ -7,24 +7,24 @@
     android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:src="@drawable/ic_action_account_circle"
         android:layout_weight="1"
         />
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/btn_contact"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:src="@drawable/ic_action_contacts"
         android:layout_weight="1"
         />
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/btn_album"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:src="@drawable/ic_action_photo_album"
         android:layout_weight="1"
         />
 

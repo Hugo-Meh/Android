@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.androidlinux.projetandroid.Bravo;
 import com.example.androidlinux.projetandroid.ChoixAct;
 import com.example.androidlinux.projetandroid.ConnexionActivity;
+import com.example.androidlinux.projetandroid.ProfileActivity;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -105,7 +106,7 @@ public class HttpOnStartApp extends AsyncTask<String,Long,String>{
 
             if (!u.getToken().equals("-1")) {
                 connexionActivity.SharedPreferenceSaveUser(u);
-                Intent intent = new Intent(ctx, ChoixAct.class);
+                Intent intent = new Intent(ctx, ProfileActivity.class);
                 intent.putExtra("token",u.getToken());
                 ctx.startActivity(intent);
                 connexionActivity.finish();
