@@ -29,6 +29,7 @@ public class PhotoManager {
         ContentValues contVal;
         contVal = new ContentValues();
 // on enregistre les valeur de l'objet photo dans la table photo.
+        contVal.put(CDataBase.user.id,photo.getId());
         contVal.put(CDataBase.image.lat,photo.getLat());
         contVal.put(CDataBase.image.lon,photo.getLon());
 

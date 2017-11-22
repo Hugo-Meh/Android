@@ -123,44 +123,13 @@ public class ConnexionRequestHttp extends AsyncTask<String, Long, String> {
                     String allUser = jsonarray.getJSONObject(0).getString("user");
                     String userAtImage = jsonarray.getJSONObject(1).getString("userAtImage");
                     String photo = jsonarray.getJSONObject(2).getString("allPhoto");
-
-
-                    jsonarray = new JSONArray(allUser);
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        User u = new User();
-                        u.setId(jsonarray.getJSONObject(i).getInt(CDataBase.user.id));
-                        u.setfName(jsonarray.getJSONObject(i).getString(CDataBase.user.fName));
-                        u.setlName(jsonarray.getJSONObject(i).getString(CDataBase.user.lName));
-                        if (!user.getLogin().equals(jsonarray.getJSONObject(i).getString(CDataBase.user.login))) {
-                            UserManager.insert(ctx, u);
-                        } else {
-                            u.setToken(jsonarray.getJSONObject(i).getString(CDataBase.user.token));
-                            new MysharedPerfermence(ctx, u).saveMySharedPerfermence();
-                        }
-
-                    }
-                    jsonarray = new JSONArray(userAtImage);
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        int idImage = jsonarray.getJSONObject(i).getInt("idImage");
-                        int idUser = jsonarray.getJSONObject(i).getInt("idUser");
-                        UserAtPhotoManager.insert(ctx, idImage, idUser);
-
-                    }
-                    jsonarray = new JSONArray(photo);
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        int id = jsonarray.getJSONObject(i).getInt("id");
-                        double lat = jsonarray.getJSONObject(i).getDouble("lat");
-                        double lon = jsonarray.getJSONObject(i).getDouble("lon");
-                        Photo phototosave = new Photo(id, lat, lon);
-                        PhotoManager.insert(ctx, phototosave);
-
-                    }
+                    SaveInSqlLiteOnStartApp.Save(ctx,allUser,photo,userAtImage,user);
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                ViewUtils.stopProgressBar();
+
                 Intent intent = new Intent(ctx, ProfileActivity.class);
                 ctx.startActivity(intent);
                 connexionActivity.finish();
@@ -170,7 +139,7 @@ public class ConnexionRequestHttp extends AsyncTask<String, Long, String> {
         } else {
             Toast.makeText(ctx, "erreur de connexion a la base de donnée", Toast.LENGTH_LONG).show();
         }
-
+        ViewUtils.stopProgressBar();
 
     }
 

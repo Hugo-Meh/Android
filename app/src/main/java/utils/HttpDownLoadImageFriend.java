@@ -24,11 +24,11 @@ import service.C;
  * Created by mohamed on 17-11-21.
  */
 
-public class HttpRequestUserfriend extends AsyncTask<String,Long,String> {
+public class HttpDownLoadImageFriend extends AsyncTask<String,Long,String> {
 
     Context ctx;
 
-    public HttpRequestUserfriend(Context ctx) {
+    public HttpDownLoadImageFriend(Context ctx) {
         this.ctx = ctx;
     }
 
@@ -39,12 +39,14 @@ public class HttpRequestUserfriend extends AsyncTask<String,Long,String> {
         StringBuilder sb = new StringBuilder();
         String requestURL = C.adresseIp + params[0];
         OutputStream out;
+        String idUser=params[1];
+        String idImage=params[2];
 
 
         URL url = null;
         try {
 
-
+            String paramtoSend="idUser="+idUser+"idImage="+idImage;
             url = new URL(requestURL);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
