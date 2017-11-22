@@ -38,30 +38,26 @@ import service.C;
  * Created by mohamed on 17-11-19.
  */
 
-public class HttpOnStartApp extends AsyncTask<String,Long,String>{
+public class DowloadData extends AsyncTask<String, Long, String> {
     Context ctx;
     ConnexionActivity connexionActivity;
-    User user;
 
-    public HttpOnStartApp(Context ctx, ConnexionActivity connexionActivity) {
+
+    public DowloadData(Context ctx, ConnexionActivity connexionActivity) {
         this.ctx = ctx;
         this.connexionActivity = connexionActivity;
     }
 
     @Override
     protected String doInBackground(String... params) {
-        String retour="";
+        String retour = "";
         HttpURLConnection conn = null;
         StringBuilder sb = new StringBuilder();
         String requestURL = C.adresseIp + params[0];
-        user = new User(params[1]);
+
 
         URL url = null;
         try {
-
-            Gson gson= new Gson();
-            String s=gson.toJson(user);
-            Log.d("test","json envoie ->"+s);
             url = new URL(requestURL);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -71,7 +67,7 @@ public class HttpOnStartApp extends AsyncTask<String,Long,String>{
             conn.setDoOutput(true);
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(s);
+            writer.write("");
             writer.flush();
             writer.close();
             int responseCode = conn.getResponseCode();
@@ -105,7 +101,7 @@ public class HttpOnStartApp extends AsyncTask<String,Long,String>{
     @Override
     protected void onPostExecute(String s) {
 
-        Log.d("get","on post execut  httpstart  ->"+s);
+        Log.d("get", "on post execut  httpstart  ->" + s);
 
         if (!s.equals("")) {
 
@@ -118,22 +114,15 @@ public class HttpOnStartApp extends AsyncTask<String,Long,String>{
                     String allUser = jsonarray.getJSONObject(0).getString("user");
                     String userAtImage = jsonarray.getJSONObject(1).getString("userAtImage");
                     String photo = jsonarray.getJSONObject(2).getString("allPhoto");
-                    SaveInSqlLiteOnStartApp.Save(ctx,allUser,photo,userAtImage);
+                    SaveInSqlLiteOnStartApp.Save(ctx, allUser, photo, userAtImage);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
 
-
-
-            } else {
-                Toast.makeText(ctx, "Vous n'etes plus connecté veuillez verifier votre connexion", Toast.LENGTH_LONG).show();
             }
-
-        } else {
-            Toast.makeText(ctx, "erreur de connexion a la base de donnée", Toast.LENGTH_LONG).show();
+            ViewUtils.stopProgressBar();
         }
-        ViewUtils.stopProgressBar();
     }
 
     @Override

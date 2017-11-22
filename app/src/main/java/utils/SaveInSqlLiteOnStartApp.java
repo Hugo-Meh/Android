@@ -23,10 +23,12 @@ public class SaveInSqlLiteOnStartApp {
             JSONArray jsonarray = new JSONArray(users);
             for (int i = 0; i < jsonarray.length(); i++) {
                 User u = new User();
+
                 u.setId(jsonarray.getJSONObject(i).getInt(CDataBase.user.id));
                 u.setfName(jsonarray.getJSONObject(i).getString(CDataBase.user.fName));
                 u.setlName(jsonarray.getJSONObject(i).getString(CDataBase.user.lName));
                 u.setLogin(jsonarray.getJSONObject(i).getString(CDataBase.user.login));
+                Log.d("testuser",""+u);
 
                 if (!user.getLogin().equals(jsonarray.getJSONObject(i).getString(CDataBase.user.login)) && !(UserManager.getAllContact(ctx).contains(u))) {
                     UserManager.insert(ctx, u);
@@ -41,6 +43,7 @@ public class SaveInSqlLiteOnStartApp {
                 int idImage = jsonarray.getJSONObject(i).getInt("idImage");
                 int idUser = jsonarray.getJSONObject(i).getInt("idUser");
                 UserAtPhotoManager.insert(ctx, idImage, idUser);
+                Log.d("testuser",""+idImage+"   "+idUser);
 
             }
             jsonarray = new JSONArray(images);
@@ -50,6 +53,7 @@ public class SaveInSqlLiteOnStartApp {
                 double lon = jsonarray.getJSONObject(i).getDouble("long");
                 Photo phototosave = new Photo(id, lat, lon);
                 PhotoManager.insert(ctx, phototosave);
+                Log.d("testuser",phototosave.toString());
 
             }
         } catch (JSONException e) {

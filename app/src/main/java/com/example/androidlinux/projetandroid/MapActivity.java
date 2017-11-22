@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.GoogleMap;
 
+import utils.MysharedPerfermence;
+
 public class MapActivity extends AppCompatActivity {
     Intent intent;
     ImageButton btn_profile,btn_contact,btn_album,btn_map,btn_camera,btn_deconnexion;
@@ -83,6 +85,7 @@ public class MapActivity extends AppCompatActivity {
         btn_deconnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new MysharedPerfermence(ctx).clear();
                 intent = new Intent(ctx,ConnexionActivity.class);
                 ctx.startActivity(intent);
             }

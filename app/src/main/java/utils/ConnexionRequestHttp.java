@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -88,7 +89,7 @@ public class ConnexionRequestHttp extends AsyncTask<String, Long, String> {
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
                 while ((line = br.readLine()) != null) {
-                    retour += line;
+                    retour += line+"\n";
 
                 }
 
@@ -117,8 +118,9 @@ public class ConnexionRequestHttp extends AsyncTask<String, Long, String> {
         Gson json= new Gson();
 
         if (!s.equals("")) {
-            User user=json.fromJson(s,User.class);
+
             if (!s.equals("-1")) {
+                User user=json.fromJson(s,User.class);
                 Log.d("test",user.getLogin());
                 new MysharedPerfermence(ctx,user).saveMySharedPerfermence();
                 Intent intent = new Intent(ctx, ProfileActivity.class);
@@ -139,5 +141,6 @@ public class ConnexionRequestHttp extends AsyncTask<String, Long, String> {
     protected void onPreExecute() {
 
         ViewUtils.startProgressDialog(ctx, "Connexion...");
+
     }
 }

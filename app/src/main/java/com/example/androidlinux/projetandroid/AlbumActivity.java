@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import Adapter.ContactAdapter;
 import Adapter.StringAdapter;
 import Entities.User;
+import utils.MysharedPerfermence;
 
 public class AlbumActivity extends AppCompatActivity {
     Intent intent;
@@ -105,6 +106,7 @@ public class AlbumActivity extends AppCompatActivity {
         btn_deconnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new MysharedPerfermence(ctx).clear();
                 intent = new Intent(ctx,ConnexionActivity.class);
                 ctx.startActivity(intent);
             }

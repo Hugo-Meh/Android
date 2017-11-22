@@ -125,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
         btn_deconnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new  MysharedPerfermence(ctx).clear();
                 intent = new Intent(ctx,ConnexionActivity.class);
                 ctx.startActivity(intent);
             }

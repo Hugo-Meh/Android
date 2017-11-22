@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import Adapter.ContactAdapter;
 import Entities.User;
 import manager.UserManager;
+import utils.DowloadData;
+import utils.MysharedPerfermence;
 
 public class ContactActivity extends AppCompatActivity {
     Intent intent;
@@ -34,6 +36,7 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.app);
         ctx =this;
         // ContactList test
+         new DowloadData(ctx,null).execute("sendData");
         ArrayList<User> contactList;
 
         contactList = UserManager.getAllContact(ctx);
@@ -120,6 +123,8 @@ public class ContactActivity extends AppCompatActivity {
         btn_deconnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new  MysharedPerfermence(ctx).clear();
+                new  MysharedPerfermence(ctx).clear();
                 intent = new Intent(ctx,ConnexionActivity.class);
                 ctx.startActivity(intent);
             }
