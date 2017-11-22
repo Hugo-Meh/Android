@@ -1,6 +1,7 @@
 package utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,8 +17,8 @@ import manager.UserManager;
  */
 
 public class SaveInSqlLiteOnStartApp {
-    static public void Save(Context ctx, String users, String images, String imagesAtUser, User user) {
-
+    static public void Save(Context ctx, String users, String images, String imagesAtUser) {
+        User user= new MysharedPerfermence(ctx).RecoverSharedPermenceUser();
         try {
             JSONArray jsonarray = new JSONArray(users);
             for (int i = 0; i < jsonarray.length(); i++) {
@@ -25,7 +26,9 @@ public class SaveInSqlLiteOnStartApp {
                 u.setId(jsonarray.getJSONObject(i).getInt(CDataBase.user.id));
                 u.setfName(jsonarray.getJSONObject(i).getString(CDataBase.user.fName));
                 u.setlName(jsonarray.getJSONObject(i).getString(CDataBase.user.lName));
-                if (!user.getLogin().equals(jsonarray.getJSONObject(i).getString(CDataBase.user.login))) {
+                u.setLogin(jsonarray.getJSONObject(i).getString(CDataBase.user.login));
+
+                if (!user.getLogin().equals(jsonarray.getJSONObject(i).getString(CDataBase.user.login)) && !(UserManager.getAllContact(ctx).contains(u))) {
                     UserManager.insert(ctx, u);
                 } else {
                     u.setToken(jsonarray.getJSONObject(i).getString(CDataBase.user.token));
@@ -44,7 +47,7 @@ public class SaveInSqlLiteOnStartApp {
             for (int i = 0; i < jsonarray.length(); i++) {
                 int id = jsonarray.getJSONObject(i).getInt("id");
                 double lat = jsonarray.getJSONObject(i).getDouble("lat");
-                double lon = jsonarray.getJSONObject(i).getDouble("lon");
+                double lon = jsonarray.getJSONObject(i).getDouble("long");
                 Photo phototosave = new Photo(id, lat, lon);
                 PhotoManager.insert(ctx, phototosave);
 

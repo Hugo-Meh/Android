@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -138,7 +139,7 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap map) {
         ArrayList<Photo> photoUser = PhotoManager.getAllFromUser(ctx,myuser);
-
+        Log.d("test","photo user size ->  "+photoUser.size());
        for (int i=0; i<photoUser.size();i++){
            map.addMarker(new MarkerOptions().position(new LatLng(photoUser.get(i).getLat(), photoUser.get(i).getLon())).title("Marker"));
        }

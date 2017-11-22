@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\samsung\AndroidStudioProjects\TPAndroid\Android-master.iml" filepath="C:\Users\samsung\AndroidStudioProjects\TPAndroid\Android-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TPAndroid.iml" filepath="$PROJECT_DIR$/TPAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

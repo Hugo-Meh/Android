@@ -33,7 +33,7 @@
 
             />
         <EditText
-            android:text="Nefzi"
+            android:text=""
             android:layout_margin="10dp"
             android:id="@+id/ed__nom_inscription"
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
             android:layout_weight="1"
             />
         <EditText
-            android:text="mohamed"
+            android:text=""
             android:layout_margin="10dp"
             android:id="@+id/ed__prenom_inscription"
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             android:layout_weight="1"
             />
         <EditText
-            android:text="android_projet_isi"
+            android:text=""
             android:layout_margin="10dp"
             android:id="@+id/ed__login_inscription"
             android:layout_width="match_parent"
@@ -63,7 +63,7 @@
             android:layout_weight="1"
             />
         <EditText
-            android:text="isi_android"
+            android:text=""
             android:layout_margin="10dp"
             android:id="@+id/ed__pwd_inscription"
             android:layout_width="match_parent"

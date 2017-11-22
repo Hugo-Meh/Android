@@ -115,13 +115,10 @@ public class HttpOnStartApp extends AsyncTask<String,Long,String>{
             if (!s.equals("-1")) {
                 try {
                     jsonarray = new JSONArray(s);
-                    JSONObject obj = jsonarray.getJSONObject(0);
-
                     String allUser = jsonarray.getJSONObject(0).getString("user");
                     String userAtImage = jsonarray.getJSONObject(1).getString("userAtImage");
                     String photo = jsonarray.getJSONObject(2).getString("allPhoto");
-                  //  SaveInSqlLiteOnStartApp.Save(ctx,allUser,photo,userAtImage,user);
-
+                    SaveInSqlLiteOnStartApp.Save(ctx,allUser,photo,userAtImage);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

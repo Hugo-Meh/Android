@@ -19,5 +19,4 @@ public class ConnexionBD {
         bd.close();
     }
 
-
 }

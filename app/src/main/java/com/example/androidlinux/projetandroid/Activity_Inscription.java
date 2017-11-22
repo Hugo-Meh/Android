@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import service.GestionBd;
 import utils.InscriptionRequestHttp;
 import utils.Md5;
 
@@ -46,6 +47,7 @@ public class Activity_Inscription extends AppCompatActivity {
                 String login=ed_login.getText().toString();
                 String pwd= Md5.md5(ed_password.getText().toString());
                 Log.d("test","nom= "+nom+" prenom = "+prenom+ " login= "+login+"   pwd= "+pwd);
+
                 new InscriptionRequestHttp(ctx,activity_inscription).execute("inscription",nom,prenom,login,pwd);
 
             }

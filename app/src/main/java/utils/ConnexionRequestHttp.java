@@ -58,8 +58,11 @@ public class ConnexionRequestHttp extends AsyncTask<String, Long, String> {
         HttpURLConnection conn = null;
         StringBuilder sb = new StringBuilder();
         String requestURL = C.adresseIp + params[0];
-        user = new User(params[1], params[2]);
-
+        if(params[2]!=null) {
+            user = new User(params[1], params[2]);
+        }else{
+            user = new User(params[1]);
+        }
         URL url = null;
         try {
 
@@ -111,25 +114,13 @@ public class ConnexionRequestHttp extends AsyncTask<String, Long, String> {
     protected void onPostExecute(String s) {
 
         Log.d("test  ", "on post execut  http connexion ->" + s);
-        JSONArray jsonarray = null;
+        Gson json= new Gson();
+
         if (!s.equals("")) {
+            User user=json.fromJson(s,User.class);
             if (!s.equals("-1")) {
-                try {
-                    jsonarray = new JSONArray(s);
-
-
-                    JSONObject obj = jsonarray.getJSONObject(0);
-
-                    String allUser = jsonarray.getJSONObject(0).getString("user");
-                    String userAtImage = jsonarray.getJSONObject(1).getString("userAtImage");
-                    String photo = jsonarray.getJSONObject(2).getString("allPhoto");
-                    SaveInSqlLiteOnStartApp.Save(ctx,allUser,photo,userAtImage,user);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                Log.d("test",user.getLogin());
+                new MysharedPerfermence(ctx,user).saveMySharedPerfermence();
                 Intent intent = new Intent(ctx, ProfileActivity.class);
                 ctx.startActivity(intent);
                 connexionActivity.finish();

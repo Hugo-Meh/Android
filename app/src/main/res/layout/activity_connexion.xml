@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:gravity="center|center_horizontal"
             android:hint="Identifiant"
-            android:text="humeh" />
+            android:text="" />
         >
 
         <TextView
@@ -66,7 +66,7 @@
             android:gravity="center|center_horizontal"
             android:hint="Mot de Passe"
             android:inputType="textPassword"
-            android:text="abc123..." />
+            android:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"

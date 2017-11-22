@@ -56,4 +56,7 @@ public class GestionBd extends SQLiteOpenHelper {
         db.execSQL(queryDropUserAtImage);
         onCreate(db);
     }
+
+
+
 }
