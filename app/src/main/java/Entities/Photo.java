@@ -22,8 +22,13 @@ public class Photo {
         this.src = src;
     }
 
+    public Photo(int id, double lat, double lon) {
+        this.id = id;
+        this.lat = lat;
+        this.lon = lon;
+    }
 
-    public Photo(double lat, double lon, Date date,String src,String base64) {
+    public Photo(double lat, double lon, Date date, String src, String base64) {
         this.lat = lat;
         this.lon = lon;
         this.date = date;

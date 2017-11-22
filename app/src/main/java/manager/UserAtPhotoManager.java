@@ -20,10 +20,10 @@ public class UserAtPhotoManager {
 
     //public static final String queryGetAllFromUser = "select * from "+ CDataBase.userAtImage.nomTable+" where idUser = ?";
 
-    public static void insert (Context ctx, int id, User user){
+    public static void insert (Context ctx, int id,int idu){
 
         ContentValues contVal = new ContentValues();
-        contVal.put( CDataBase.userAtImage.idUser,user.getId());
+        contVal.put( CDataBase.userAtImage.idUser,idu);
         contVal.put( CDataBase.userAtImage.idImage,id);
 
         SQLiteDatabase bd = ConnexionBD.getBd(ctx);

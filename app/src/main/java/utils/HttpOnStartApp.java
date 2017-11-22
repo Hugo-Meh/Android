@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.androidlinux.projetandroid.Bravo;
 import com.example.androidlinux.projetandroid.ChoixAct;
 import com.example.androidlinux.projetandroid.ConnexionActivity;
+import com.example.androidlinux.projetandroid.ProfileActivity;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -101,11 +103,11 @@ public class HttpOnStartApp extends AsyncTask<String,Long,String>{
         Log.d("get","on post execut   ->"+s);
         if (!s.equals("")) {
             Gson gson = new Gson();
-            User u = gson.fromJson(s, User.class);
+            User u = gson.fromJson(s,User.class);
 
             if (!u.getToken().equals("-1")) {
                 connexionActivity.SharedPreferenceSaveUser(u);
-                Intent intent = new Intent(ctx, ChoixAct.class);
+                Intent intent = new Intent(ctx, ProfileActivity.class);
                 intent.putExtra("token",u.getToken());
                 ctx.startActivity(intent);
                 connexionActivity.finish();

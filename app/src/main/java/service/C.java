@@ -5,5 +5,5 @@ package service;
  */
 
 public class C {
-    public static  String adresseIp="http://192.168.15.117:8081/APIAndroid/";
+    public static  String adresseIp="http://192.168.1.3:8080/APIAndroid/";
 }
