@@ -87,5 +87,10 @@ public class MapActivity extends AppCompatActivity {
                 ctx.startActivity(intent);
             }
         });
+
+
+
     }
+
+
 }

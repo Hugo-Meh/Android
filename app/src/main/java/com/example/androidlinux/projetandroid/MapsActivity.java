@@ -13,12 +13,13 @@ import com.google.maps.android.clustering.ClusterManager;
 import java.util.ArrayList;
 
 import Entities.MyItem;
+import Entities.Photo;
 import Entities.PhotoMarker;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     public Context ctx;
     private GoogleMap mMap;
-    private ArrayList<PhotoMarker> MyPhotoMarkers;
+    private ArrayList<Photo> MyPhotos;
     private ClusterManager<MyItem> CManagerMap;
 
 
@@ -46,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        MyPhotoMarkers = new ArrayList<PhotoMarker>();
+        MyPhotos = new ArrayList<Photo>();
         ArrayList<MyItem> clusterMyItemList = new ArrayList<MyItem>();
 
 

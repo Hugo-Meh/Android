@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -40,6 +41,7 @@ public class AlbumActivity extends AppCompatActivity {
         //
         listStringAdapteur = new StringAdapter(ctx, R.layout.string_view, albumList);
         myList = new ListView(ctx);
+        myList.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         myList.setAdapter(listStringAdapteur);
 
         contact = (LinearLayout) findViewById(R.id.App_layout);

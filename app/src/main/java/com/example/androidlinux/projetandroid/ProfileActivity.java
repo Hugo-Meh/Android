@@ -13,8 +13,15 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
+import Entities.Photo;
 import Entities.User;
+import manager.PhotoManager;
+import manager.UserManager;
 import utils.MysharedPerfermence;
 
 public class ProfileActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -32,8 +39,18 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         ctx=this;
-        mysharedPerfermence = new MysharedPerfermence(ctx);
-        myuser = mysharedPerfermence.RecoverSharedPermenceUser();
+        int idUser = getIntent().getIntExtra("id",-1);
+        if (idUser !=-1 ){
+            myuser = new User();
+            myuser.setId(idUser);
+            myuser.setfName(getIntent().getStringExtra("prenom"));
+            myuser.setlName(getIntent().getStringExtra("nom"));
+        }
+        else{
+            mysharedPerfermence = new MysharedPerfermence(ctx);
+            myuser = mysharedPerfermence.RecoverSharedPermenceUser();
+        }
+
         setContentView(R.layout.app);
 
         profile = (LinearLayout) findViewById(R.id.App_layout);
@@ -118,7 +135,13 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
+    @Override
     public void onMapReady(GoogleMap map) {
+        ArrayList<Photo> photoUser = PhotoManager.getAllFromUser(ctx,myuser);
+
+       for (int i=0; i<photoUser.size();i++){
+           map.addMarker(new MarkerOptions().position(new LatLng(photoUser.get(i).getLat(), photoUser.get(i).getLon())).title("Marker"));
+       }
 
     }
 }

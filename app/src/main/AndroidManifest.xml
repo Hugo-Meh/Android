@@ -30,14 +30,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
 
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.mohamed.fileprovider"
@@ -55,30 +47,12 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
-        <activity
-            android:name=".Bravo"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
-        <activity
-            android:name=".Activity_Inscription"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
-        <activity
-            android:name=".ChoixAct"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
-        <activity
-            android:name=".NewCameraActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
-        <activity android:name=".ShowImage" />
-        <activity
-            android:name=".ProfileActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
-        <activity
-            android:name=".MapActivity"
+            android:name=".ConnexionActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -86,10 +60,54 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity
+            android:name=".Bravo"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity
+            android:name=".Activity_Inscription"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity
+            android:name=".ChoixAct"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity
+            android:name=".NewCameraActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity android:name=".ShowImage" android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
+        <activity
+            android:name=".MapActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
         <activity
             android:name=".ContactActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
-        <activity android:name=".AlbumActivity"></activity>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+
+        <activity android:name=".AlbumActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
     </application>
 
 </manifest>

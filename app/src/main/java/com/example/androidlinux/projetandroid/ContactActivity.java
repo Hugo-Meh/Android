@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 
 import Adapter.ContactAdapter;
 import Entities.User;
+import manager.UserManager;
 
 public class ContactActivity extends AppCompatActivity {
     Intent intent;
@@ -30,19 +34,29 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.app);
         ctx =this;
         // ContactList test
-        ArrayList<User> contactList =new ArrayList<User>();
+        ArrayList<User> contactList;
 
-        for (int i=0; i<5;i++){
-            User user = new User();
-            user.setfName("Hugo");
-            user.setlName("Mehdaoui");
-            contactList.add(user);
-        }
-        //
+        contactList = UserManager.getAllContact(ctx);
         listContactAdapteur = new ContactAdapter(ctx, R.layout.contact_listview_view, contactList);
-        myList = new ListView(ctx);
-        myList.setAdapter(listContactAdapteur);
 
+        myList = new ListView(ctx);
+        myList.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        myList.setAdapter(listContactAdapteur);
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                User user = (User) adapterView.getItemAtPosition(i);
+                Log.d("mon user prenom", user.getfName());
+                Log.d("mon user nom", user.getlName());
+                Log.d("mon user id", String.valueOf(user.getId()));
+
+                Intent intent = new Intent(ctx,ProfileActivity.class);
+                intent.putExtra("id",user.getId());
+                intent.putExtra("prenom",user.getfName());
+                intent.putExtra("nom",user.getlName());
+                ctx.startActivity(intent);
+            }
+        });
         contact = (LinearLayout) findViewById(R.id.App_layout);
 
         menuTop = new LinearLayout(this);
@@ -51,8 +65,10 @@ public class ContactActivity extends AppCompatActivity {
 
         menuTop = (LinearLayout) getLayoutInflater().inflate(R.layout.menu_top, (LinearLayout) contact.findViewById(R.id.menu_top), true);
         menuBottom = (LinearLayout) getLayoutInflater().inflate(R.layout.menu_bottom, (LinearLayout) contact.findViewById(R.id.menu_bottom), true);
+
         mainLayout = contact.findViewById(R.id.main_layout);
         mainLayout.addView(myList);
+
 
         btn_profile = (ImageButton) findViewById(R.id.btn_profile);
         btn_contact = (ImageButton) findViewById(R.id.btn_contact);

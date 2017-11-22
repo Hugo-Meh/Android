@@ -20,12 +20,12 @@ public class MyItem implements ClusterItem {
     }
 
     public MyItem(LatLng position) {
+
         this.Position = position;
     }
 
     @Override
     public LatLng getPosition() {
-
         return Position;
     }
 }

@@ -26,6 +26,7 @@ public class StringAdapter extends ArrayAdapter<String> {
 
     public StringAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
         super(context, resource, objects);
+        ctx=context;
     }
 
 
@@ -37,7 +38,7 @@ public class StringAdapter extends ArrayAdapter<String> {
         if(convertView == null){
             LayoutInflater li = LayoutInflater.from(ctx);
 
-            convertView = li.inflate(R.layout.contact_listview_view,null);
+            convertView = li.inflate(R.layout.string_view,null);
 
 
         }
@@ -47,7 +48,7 @@ public class StringAdapter extends ArrayAdapter<String> {
 
 
         paystv.setText(pays);
-        
+
 
         return convertView;
     }
